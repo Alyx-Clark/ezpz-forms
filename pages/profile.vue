@@ -84,12 +84,15 @@ const successMsg = ref('')
 const errorMsg = ref('')
 
 async function loadProfile() {
-  if (!user.value?.id) return
+  if (!user.value?.sub) {
+    loading.value = false
+    return
+  }
 
   const { data } = await supabase
     .from('profiles')
     .select('*')
-    .eq('id', user.value.id)
+    .eq('id', user.value.sub)
     .single()
 
   if (data) {
@@ -102,7 +105,7 @@ async function loadProfile() {
 }
 
 async function handleUpdate() {
-  if (!user.value) return
+  if (!user.value?.sub) return
   saving.value = true
   successMsg.value = ''
   errorMsg.value = ''
@@ -114,7 +117,7 @@ async function handleUpdate() {
       phone: phone.value,
       updated_at: new Date().toISOString(),
     })
-    .eq('id', user.value.id)
+    .eq('id', user.value.sub)
 
   if (error) {
     errorMsg.value = error.message

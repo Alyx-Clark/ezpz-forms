@@ -18,7 +18,7 @@ export function useFormBuilder() {
     const { data, error: err } = await supabase
       .from('forms')
       .insert({
-        user_id: user.value.id,
+        user_id: user.value.sub,
         title,
         description: description || null,
       })

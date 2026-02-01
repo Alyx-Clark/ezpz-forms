@@ -43,33 +43,38 @@ const fieldCounts = ref<Record<string, number>>({})
 const loading = ref(true)
 
 async function loadForms() {
-  if (!user.value?.id) return
+  if (!user.value?.sub) {
+    loading.value = false
+    return
+  }
   loading.value = true
 
-  const { data } = await supabase
-    .from('forms')
-    .select('*')
-    .eq('user_id', user.value.id)
-    .order('created_at', { ascending: false })
+  try {
+    const { data } = await supabase
+      .from('forms')
+      .select('*')
+      .eq('user_id', user.value.sub)
+      .order('created_at', { ascending: false })
 
-  forms.value = (data || []) as Form[]
+    forms.value = (data || []) as Form[]
 
-  // Get field counts for each form
-  if (forms.value.length > 0) {
-    const formIds = forms.value.map((f) => f.id)
-    const { data: fields } = await supabase
-      .from('form_fields')
-      .select('form_id')
-      .in('form_id', formIds)
+    // Get field counts for each form
+    if (forms.value.length > 0) {
+      const formIds = forms.value.map((f) => f.id)
+      const { data: fields } = await supabase
+        .from('form_fields')
+        .select('form_id')
+        .in('form_id', formIds)
 
-    const counts: Record<string, number> = {}
-    for (const field of fields || []) {
-      counts[field.form_id] = (counts[field.form_id] || 0) + 1
+      const counts: Record<string, number> = {}
+      for (const field of fields || []) {
+        counts[field.form_id] = (counts[field.form_id] || 0) + 1
+      }
+      fieldCounts.value = counts
     }
-    fieldCounts.value = counts
+  } finally {
+    loading.value = false
   }
-
-  loading.value = false
 }
 
 async function handleDelete(formId: string) {
@@ -86,6 +91,6 @@ async function handleDelete(formId: string) {
 }
 
 watch(user, (val) => {
-  if (val) loadForms()
+  if (val?.sub) loadForms()
 }, { immediate: true })
 </script>

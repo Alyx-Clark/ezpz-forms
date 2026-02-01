@@ -41,7 +41,10 @@
       "Bash(sudo chmod:*)",
       "Bash(sudo apt update:*)",
       "Bash(sudo apt install:*)",
-      "Bash($HOME/.local/bin/gh auth status:*)"
+      "Bash($HOME/.local/bin/gh auth status:*)",
+      "Bash($HOME/.local/bin/gh repo create:*)",
+      "mcp__supabase__execute_sql",
+      "mcp__supabase__get_logs"
     ]
   }
 }
