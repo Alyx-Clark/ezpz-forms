@@ -1,0 +1,176 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* -------------------------------------------------- */
+/* Glassmorphism utility classes                      */
+/* -------------------------------------------------- */
+
+/* Rainbow gradient background */
+.glass-bg {
+  background: linear-gradient(
+    135deg,
+    #fecaca 0%,
+    #fbcfe8 15%,
+    #e9d5ff 30%,
+    #bfdbfe 45%,
+    #a5f3fc 60%,
+    #bbf7d0 75%,
+    #fef08a 100%
+  );
+  min-height: 100vh;
+  color: #1e293b;
+}
+
+/* Primary frosted surface */
+.glass-card {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  color: #334155;
+}
+
+/* Lighter variant for nested cards */
+.glass-card-light {
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  color: #334155;
+}
+
+/* Frosted navbar */
+.glass-navbar {
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+  color: #334155;
+}
+
+/* Frosted footer */
+.glass-footer {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* Ensure DaisyUI elements inherit dark text on glass surfaces */
+.glass-card .label-text,
+.glass-card .label-text-alt,
+.glass-card-light .label-text,
+.glass-card-light .label-text-alt {
+  color: #475569;
+}
+
+.glass-navbar .btn-ghost,
+.glass-card .btn-ghost {
+  color: #334155;
+}
+
+/* Gradient text fill */
+.glass-heading {
+  background: linear-gradient(135deg, #6366f1, #ec4899, #f59e0b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Translucent input backgrounds */
+.glass-input {
+  background: rgba(255, 255, 255, 0.45) !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-color: rgba(255, 255, 255, 0.6) !important;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+.glass-input:focus {
+  border-color: #6366f1 !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25) !important;
+  outline: none;
+}
+
+/* Frosted code blocks */
+.glass-code {
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+}
+
+/* Frosted table wrapper */
+.glass-table {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+/* -------------------------------------------------- */
+/* Print overrides — strip glass effects              */
+/* -------------------------------------------------- */
+@media print {
+  .no-print,
+  .navbar,
+  .footer,
+  .btn-print-hide {
+    display: none !important;
+  }
+
+  body {
+    background: white;
+    color: black;
+  }
+
+  .print-full-width {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .glass-bg {
+    background: white !important;
+    min-height: auto;
+  }
+
+  .glass-card,
+  .glass-card-light,
+  .glass-navbar,
+  .glass-footer,
+  .glass-code,
+  .glass-table {
+    background: white !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: none !important;
+    border-color: #e5e7eb !important;
+  }
+
+  .glass-input {
+    background: white !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border-color: #d1d5db !important;
+    box-shadow: none !important;
+  }
+
+  .glass-heading {
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    -webkit-text-fill-color: #1e293b !important;
+    background-clip: unset !important;
+  }
+}

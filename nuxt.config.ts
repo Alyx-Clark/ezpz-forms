@@ -1,0 +1,46 @@
+// https://nuxt.com/docs/api/configuration/nuxt-config
+export default defineNuxtConfig({
+  compatibilityDate: '2024-11-01',
+  devtools: { enabled: true },
+
+  modules: [
+    '@nuxtjs/supabase',
+    '@nuxtjs/tailwindcss',
+  ],
+
+  supabase: {
+    redirectOptions: {
+      login: '/login',
+      callback: '/confirm',
+      include: ['/dashboard(.*)', '/forms(.*)', '/profile(.*)'],
+      exclude: ['/', '/register', '/f(.*)'],
+      saveRedirectToCookie: true,
+    },
+  },
+
+  css: ['~/assets/css/main.css'],
+
+  app: {
+    head: {
+      title: 'EZPZ Forms',
+      meta: [
+        { name: 'description', content: 'Create and share forms with ease' },
+      ],
+      link: [
+        {
+          rel: 'preconnect',
+          href: 'https://fonts.googleapis.com',
+        },
+        {
+          rel: 'preconnect',
+          href: 'https://fonts.gstatic.com',
+          crossorigin: '',
+        },
+        {
+          rel: 'stylesheet',
+          href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap',
+        },
+      ],
+    },
+  },
+})
